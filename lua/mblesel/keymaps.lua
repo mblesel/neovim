@@ -14,6 +14,24 @@ vim.keymap.set("i", "<C-K>", "<C-o>gk", { desc = "Cursor up" })
 vim.keymap.set("n", "<leader>oo", "o<ESC>k", { desc = "Add Empty Line Below" })
 vim.keymap.set("n", "<leader>OO", "O<ESC>j", { desc = "Add Empty Line Above" })
 
+-- remaps for german keyboard layout
+vim.keymap.set("n", "ä", "@", { desc = "Execute Macro" })
+vim.keymap.set({"n", "v", "o", "x" }, "ö", ";", {desc = "Repeat Last Movement"})
+vim.keymap.set({"n", "v", "o", "x" }, "Ü", "{")
+vim.keymap.set({"n", "v", "o", "x" }, "*", "}")
+
+local ts_repeat_move = require("nvim-treesitter.textobjects.repeatable_move")
+-- vim way: ; goes to the direction you were moving.
+vim.keymap.set({ "n", "x", "o" }, "ö", ts_repeat_move.repeat_last_move)
+vim.keymap.set({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_opposite)
+
+-- Optionally, make builtin f, F, t, T also repeatable with ; and ,
+vim.keymap.set({ "n", "x", "o" }, "f", ts_repeat_move.builtin_f_expr, { expr = true })
+vim.keymap.set({ "n", "x", "o" }, "F", ts_repeat_move.builtin_F_expr, { expr = true })
+vim.keymap.set({ "n", "x", "o" }, "t", ts_repeat_move.builtin_t_expr, { expr = true })
+vim.keymap.set({ "n", "x", "o" }, "T", ts_repeat_move.builtin_T_expr, { expr = true })
+
+
 --- vim functions ---
 --
 -- Clear search highlighting
@@ -39,7 +57,6 @@ require("mblesel.markdown_follow_links")
 vim.keymap.set("n", "gm", follow_link, { desc = "Markdown Open Link" })
 
 -- Macros
-vim.keymap.set("n", "ö", "@", { desc = "Execute Macro" })
 
 -- Terminal
 vim.keymap.set("n", "<leader>T", ":terminal<CR>", { desc = "Terminal Open" })
@@ -96,8 +113,8 @@ vim.keymap.set("n", "<leader>^", "<C-^>", { desc = "Buffer Tab" })
 
 -- Buffer stuff
 vim.keymap.set("n", "<leader>t", ":tabe<CR>", { desc = "Tab New" })
-vim.keymap.set("n", "<leader>h", ":bprevious<CR>", { desc = "Buffer Previous " })
-vim.keymap.set("n", "<leader>l", ":bnext<CR>", { desc = "Buffer Next" })
+-- vim.keymap.set("n", "<leader>h", ":bprevious<CR>", { desc = "Buffer Previous " })
+-- vim.keymap.set("n", "<leader>l", ":bnext<CR>", { desc = "Buffer Next" })
 
 -- Split stuff
 vim.keymap.set("n", "<C-H>", "<C-W><C-H>", { noremap = true, desc = "Split go left" })
@@ -129,6 +146,7 @@ vim.keymap.set("n", "<leader>RM", confirm_and_delete_buffer, { desc = "File Dele
 
 --- Plugins ---
 
+
 -- Open Spectre for global find/replace
 vim.keymap.set("n", "<leader>S", function()
     require("spectre").toggle()
@@ -147,12 +165,22 @@ vim.keymap.set("n", "<leader>mte", ":Telescope emoji<CR>", { desc = "Telescope E
 vim.keymap.set("n", "<leader>mtg", ":Telescope glyph<CR>", { desc = "Telescope Glyph" })
 vim.keymap.set("n", "<leader>mtl", ":Telescope software-licenses find<CR>", { desc = "Telescope Software-Licenses" })
 
+-- harpoon 
+local harpoon = require("harpoon")
+
+vim.keymap.set("n", "<leader>ha", function() harpoon:list():add() end)
+vim.keymap.set("n", "<leader>hh", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+
+vim.keymap.set("n", "<leader>jj", function() harpoon:list():select(1) end)
+vim.keymap.set("n", "<leader>kk", function() harpoon:list():select(2) end)
+vim.keymap.set("n", "<leader>ll", function() harpoon:list():select(3) end)
+
 -- ufo
 -- Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself
 -- vim.keymap.set('n', '<leader>+', require('ufo').openAllFolds, {desc = "Folds Open All"})
 -- vim.keymap.set('n', '<leader>-', require('ufo').closeAllFolds, {desc = "Folds Close All"})
-vim.keymap.set("n", "-", "<cmd>foldclose<CR>", { desc = "Fold Close" })
-vim.keymap.set("n", "+", "<cmd>foldopen<CR>", { desc = "Fold Open" })
+-- vim.keymap.set("n", "-", "<cmd>foldclose<CR>", { desc = "Fold Close" })
+-- vim.keymap.set("n", "+", "<cmd>foldopen<CR>", { desc = "Fold Open" })
 
 -- vim.keymap.set('n', '<leader>K', function()
 --     local winid = require('ufo').peekFoldedLinesUnderCursor()
@@ -350,7 +378,6 @@ vim.keymap.set("n", "gg", "ggzz")
 vim.keymap.set("n", "<C-i>", "<C-i>zz")
 vim.keymap.set("n", "<C-o>", "<C-o>zz")
 vim.keymap.set("n", "%", "%zz")
-vim.keymap.set("n", "*", "*zz")
 vim.keymap.set("n", "#", "#zz")
 -- vim.keymap.set("n", "j", "jzz")
 -- vim.keymap.set("n", "k", "jzz")
