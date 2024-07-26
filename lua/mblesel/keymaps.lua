@@ -205,7 +205,7 @@ vim.keymap.set("n", "<leader>n", "<CMD>Oil<CR>", { desc = "Open parent directory
 vim.keymap.set("n", "<leader>o", ":Outline<CR>", { desc = "Outline Toggle" })
 
 -- Transparent
--- vim.keymap.set("n", "<C-B>", ":TransparentToggle<CR>")
+vim.keymap.set("n", "<leader>b", ":TransparentToggle<CR>")
 
 -- Cellular Automaton
 vim.keymap.set("n", "<leader>fml", "<cmd>CellularAutomaton make_it_rain<CR>", { desc = "CellularAutomaton" })
@@ -314,7 +314,7 @@ vim.keymap.set("n", "<leader>P", ":PasteImage<CR>", { desc = "Markdown Paste Ima
 -- In visual mode, surround the selected text with markdown link syntax
 vim.keymap.set("v", "<leader>mll", MdConvertToLink, { desc = "Markdown Convert to Link" })
 -- In visual mode, surround the selected url with markdown link syntax
-vim.keymap.set("v", "<leader>mlL", MdConvertToLink2, { desc = "Markdown Convert to Link" })
+vim.keymap.set("n", "<leader>mlL", MdConvertToLink2, { desc = "Markdown Convert to Link" })
 
 -- Increase/Decrease all headings above H1 in the file
 vim.keymap.set("n", "<leader>mhI", MdIncreaseHeadings, { desc = "Markdown Increase Headings" })

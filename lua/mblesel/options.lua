@@ -14,6 +14,7 @@ vim.cmd("set spell!")
 
 vim.cmd("let g:markdown_folding = 1")
 
+
 -- auto-reload files when modified externally
 -- https://unix.stackexchange.com/a/383044
 vim.o.autoread = true

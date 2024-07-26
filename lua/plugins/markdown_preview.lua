@@ -9,4 +9,7 @@ return {
         "MarkdownPreview",
         "MarkdownPreviewStop",
     },
+    config = function ()
+        vim.g.mkdp_markdown_css = os.getenv("HOME") .. "/.config/nvim/markdown_styles/retro.css"
+    end,
 }

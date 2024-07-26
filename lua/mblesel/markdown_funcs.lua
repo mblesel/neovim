@@ -13,7 +13,7 @@ end
 
 function MdConvertToLink2()
     -- delete selected text
-    vim.cmd("normal d")
+    vim.cmd("normal viWd")
     -- Insert the following in insert mode
     vim.cmd("startinsert")
     vim.api.nvim_put({ "[]()" }, "c", true, true)
